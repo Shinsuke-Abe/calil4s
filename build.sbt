@@ -17,4 +17,4 @@ scalacOptions in Test ++= Seq("-Yrangepos")
 
 resolvers ++= Seq("snapshots", "releases").map(Resolver.sonatypeRepo)
 
-initialCommands := "import calil4s.calil4s._"
+initialCommands := "import calil4s._"
