@@ -1,4 +1,6 @@
-package calil4s.models
+package calil4s
+
+import api._
 
 /*
  * Copyright (C) 2014 Shinsuke Abe
@@ -19,4 +21,9 @@ package calil4s.models
 /**
  * @author mao.instantlife at gmail.com
  */
-case class CheckResult(sessionId: String, books: List[Book], continue: Boolean)
+object Calil {
+  implicit val byLibrarySite = BySiteLibrarySearcher
+  implicit val byGeoLocation = ByGeoLocationLibrarySearcher
+
+  val libraries = LibrarySearchAPI
+}
