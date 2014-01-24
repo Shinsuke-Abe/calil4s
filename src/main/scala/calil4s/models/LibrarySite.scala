@@ -19,4 +19,4 @@ package calil4s.models
 /**
  * @author mao.instantlife at gmail.com
  */
-case class LibrarySite(pref: String, city: String)
+case class LibrarySite(pref: String, city: String = null)

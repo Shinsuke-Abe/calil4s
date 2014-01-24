@@ -1,0 +1,8 @@
+package calil4s.commons
+
+/**
+ * @author mao.instantlife at gmail.com
+ */
+trait ApiRequester[T] {
+  private[calil4s] def requestUrl(condition: T, apiKey: String): String
+}
