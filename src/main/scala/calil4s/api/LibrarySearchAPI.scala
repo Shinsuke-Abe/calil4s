@@ -19,14 +19,11 @@ object BySiteLibrarySearcher extends LibrarySearcher[LibrarySite] {
   def search(self: LibrarySite, appkey: String): List[Library] =
     List(Library("Okayama_Pref", null, "testLibKey", 1L, null, "formalLibraryName", null, "岡山県", "岡山市", null, null, null, null))
 
-  private[calil4s] def requestUrl(condition: LibrarySite, appkey: String) = {
-    val paramValues = Map("appkey" -> appkey, "pref" -> condition.pref)
-
+  private[calil4s] def requestUrl(condition: LibrarySite, appkey: String) =
     url("https://api.calil.jp/library") <<? {
-      if(Option(condition.city).isDefined) paramValues + ("city" -> condition.city)
-      else paramValues
+      if(Option(condition.city).isDefined) baseQueryMap(appkey) + ("pref" -> condition.pref, "city" -> condition.city)
+      else baseQueryMap(appkey) + ("pref" -> condition.pref)
     }
-  }
 }
 
 object ByGeoLocationLibrarySearcher extends LibrarySearcher[GeoLocation]{
@@ -34,5 +31,6 @@ object ByGeoLocationLibrarySearcher extends LibrarySearcher[GeoLocation]{
     List(Library("Okayama_Pref", null, "testLibKey", 1L, null, "岡山県立図書館", null, "岡山県", "岡山市", null, null, null, null))
 
   private[calil4s] def requestUrl(geo: GeoLocation, appkey: String) =
-    url("https://api.calil.jp/library") <<? Map("appkey" -> appkey, "geocode" -> s"${geo.longitude},${geo.latitude}")
+    url("https://api.calil.jp/library") <<?
+      (baseQueryMap(appkey) + ("geocode" -> s"${geo.longitude},${geo.latitude}"))
 }
