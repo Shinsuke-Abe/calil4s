@@ -9,6 +9,7 @@ import calil4s.commons._
 import java.net.URLEncoder
 
 class LibraryTest extends Specification {
+  // TODO JSONからのunapply
   "calilUrl" should {
     "returns library search url" in {
       val library = Library("test", "test", "testLibKey", 1L, "test", "formalLibraryName", null, "", "", "", "", null, "")
