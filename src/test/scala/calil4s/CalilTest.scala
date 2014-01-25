@@ -9,13 +9,14 @@ import org.specs2.mutable._
 
 class CalilTest extends Specification {
 
+  import TestConstants._
   import Calil._
 
   "libraries" should {
     "at method with library site returns Library list" in {
       implicit val appkey = "hoge"
 
-      forall(libraries at LibrarySite("岡山県", "岡山市")){ resultLibrary =>
+      forall(libraries at siteOkayamaCity){ resultLibrary =>
         resultLibrary.pref must equalTo("岡山県")
         resultLibrary.city must equalTo("岡山市")
       }
@@ -24,7 +25,7 @@ class CalilTest extends Specification {
     "at method with geo code returns library list" in {
       implicit val appkey = "hoge"
 
-      (libraries at GeoLocation(34.6626, 133.934652)).head.formalName must equalTo("岡山県立図書館")
+      (libraries at geoOkayamaPrefLib).head.formalName must equalTo("岡山県立図書館")
     }
   }
   // TODO searchLibrary
