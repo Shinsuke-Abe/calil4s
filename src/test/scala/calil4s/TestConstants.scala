@@ -1,11 +1,21 @@
 package calil4s
 
 import calil4s.models.{GeoLocation, LibrarySite}
+import java.util.Properties
+import java.io.{FileInputStream, File}
 
 /**
  * @author mao.instantlife at gmail.com
  */
 object TestConstants {
+  val is = this.getClass.getResourceAsStream("/test.properties")
+
+  val prop = new Properties()
+  prop.load(is)
+
+  is.close()
+
+  implicit val testappkey = prop.getProperty("test.appkey")
   val siteOkayamaPref = LibrarySite("岡山県")
   val siteOkayamaCity = LibrarySite("岡山県", "岡山市")
 

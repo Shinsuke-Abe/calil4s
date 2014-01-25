@@ -14,8 +14,6 @@ class CalilTest extends Specification {
 
   "libraries" should {
     "at method with library site returns Library list" in {
-      implicit val appkey = "hoge"
-
       forall(libraries at siteOkayamaCity){ resultLibrary =>
         resultLibrary.pref must equalTo("岡山県")
         resultLibrary.city must equalTo("岡山市")
@@ -23,12 +21,11 @@ class CalilTest extends Specification {
     }
 
     "at method with geo code returns library list" in {
-      implicit val appkey = "hoge"
-
       (libraries at geoOkayamaPrefLib).head.formal must equalTo("岡山県立図書館")
     }
   }
-  // TODO searchLibrary
   // TODO checkBooks
   // TODO 結果のポーリング
+
+  // TODO Rate limit到達時の挙動が仕様に書かれていない...
 }
