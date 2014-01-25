@@ -11,7 +11,7 @@ import java.net.URLEncoder
 class LibraryTest extends Specification {
   "calilUrl" should {
     "returns library search url" in {
-      val library = Library(???, ???, "testLibKey", 1L, ???, "formalLibraryName", ???, ???, ???, ???, ???, ???, ???)
+      val library = Library("test", "test", "testLibKey", 1L, "test", "formalLibraryName", null, "", "", "", "", null, "")
 
       library.calilUrl must equalTo(calilUrl"/library/${library.libId}/${URLEncoder.encode(library.formalName, "utf-8")}")
     }

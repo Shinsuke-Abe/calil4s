@@ -36,5 +36,5 @@ case class Library(systemId: String,
                     geocode: GeoLocation,
                     category: String,
                     distance: Double = Double.MinValue) {
-  def calilUrl = calilUrl"/libary/${libId}/${URLEncoder.encode(formalName, "utf-8")}"
+  def calilUrl = calilUrl"/library/${libId}/${URLEncoder.encode(formalName, "utf-8")}"
 }

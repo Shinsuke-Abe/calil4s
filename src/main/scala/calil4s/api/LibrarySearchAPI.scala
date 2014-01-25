@@ -23,9 +23,10 @@ object BySiteLibrarySearcher extends LibrarySearcher[LibrarySite] with ApiReques
   private[calil4s] def requestUrl(condition: LibrarySite, apiKey: String) = {
     val paramValues = Map("appkey" -> apiKey, "pref" -> condition.pref)
 
-    if(Option(condition.city).isDefined) paramValues + ("city" -> condition.city)
-
-    url("http://api.calil.jp/library") <<? paramValues
+    url("http://api.calil.jp/library") <<? {
+      if(Option(condition.city).isDefined) paramValues + ("city" -> condition.city)
+      else paramValues
+    }
   }
 }
 
