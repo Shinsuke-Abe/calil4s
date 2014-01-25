@@ -8,7 +8,8 @@ scalaVersion := "2.10.3"
 
 libraryDependencies ++= Seq(
   "org.specs2" %% "specs2" % "2.3.7" % "test",
-  "net.databinder.dispatch" %% "dispatch-core" % "0.11.0"
+  "net.databinder.dispatch" %% "dispatch-core" % "0.11.0",
+  "org.json4s" %% "json4s-native" % "3.2.6"
 )
 
 scalacOptions in Test ++= Seq("-Yrangepos")

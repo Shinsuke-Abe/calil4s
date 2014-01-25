@@ -25,7 +25,7 @@ class CalilTest extends Specification {
     "at method with geo code returns library list" in {
       implicit val appkey = "hoge"
 
-      (libraries at geoOkayamaPrefLib).head.formalName must equalTo("岡山県立図書館")
+      (libraries at geoOkayamaPrefLib).head.formal must equalTo("岡山県立図書館")
     }
   }
   // TODO searchLibrary

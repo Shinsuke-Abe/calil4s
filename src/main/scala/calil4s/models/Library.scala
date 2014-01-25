@@ -22,19 +22,26 @@ import calil4s.commons._
 /**
  * @author mao.instantlife at gmail.com
  */
-case class Library(systemId: String,
-                    systemName: String,
-                    libKey: String,
-                    libId: Long,
-                    shortName: String,
-                    formalName: String,
-                    urlPc: URL,
+case class Library(systemid: String,
+                    systemname: String,
+                    libkey: String,
+                    libid: String,
+                    short: String,
+                    formal: String,
+                    url_pc: String,
                     pref: String,
                     city: String,
-                    postal: String,
+                    post: String,
                     tel: String,
-                    geocode: GeoLocation,
+                    geocode: String,
                     category: String,
-                    distance: Double = Double.MinValue) {
-  def calilUrl = calilUrl"/library/${libId}/${URLEncoder.encode(formalName, "utf-8")}"
+                    distance: Option[Double] = None) {
+  def calilUrl = calilUrl"/library/${libid}/${URLEncoder.encode(formal, "utf-8")}"
+
+  def geoLocation = {
+    val geocodeSplited = geocode.split(",")
+
+    require(geocodeSplited.length >= 2)
+    GeoLocation(geocodeSplited(1).toDouble, geocodeSplited.head.toDouble)
+  }
 }
