@@ -14,8 +14,7 @@ class LibrarySearchRequesterTest extends Specification {
     "returns query url with pref only conditon" in {
       val site = LibrarySite("岡山県")
 
-      // TODO dispatch形式のURLで返す
-      BySiteLibrarySearcher.requestUrl(site, "test-api-key") must
+      BySiteLibrarySearcher.requestUrl(site, "test-api-key").url must
       equalTo(s"http://api.calil.jp/library?appkey=test-api-key&pref=${URLEncoder.encode(site.pref, "utf-8")}")
     }
   }

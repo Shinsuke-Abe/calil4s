@@ -2,6 +2,8 @@ package calil4s.api
 
 import calil4s.models.{GeoLocation, LibrarySite, Library}
 import calil4s.commons.ApiRequester
+import java.net.URLEncoder
+import dispatch._
 
 /**
  * @author mao.instantlife at gmail.com
@@ -18,7 +20,13 @@ object BySiteLibrarySearcher extends LibrarySearcher[LibrarySite] with ApiReques
   def search(self: LibrarySite, apiKey: String): List[Library] =
     List(Library("Okayama_Pref", null, "testLibKey", 1L, null, "formalLibraryName", null, "岡山県", "岡山市", null, null, null, null))
 
-  private[calil4s] def requestUrl(condition: LibrarySite, apiKey: String): String = ???
+  private[calil4s] def requestUrl(condition: LibrarySite, apiKey: String) = {
+    val paramValues = Map("appkey" -> apiKey, "pref" -> condition.pref)
+
+    if(Option(condition.city).isDefined) paramValues + ("city" -> condition.city)
+
+    url("http://api.calil.jp/library") <<? paramValues
+  }
 }
 
 object ByGeoLocationLibrarySearcher extends LibrarySearcher[GeoLocation]{
