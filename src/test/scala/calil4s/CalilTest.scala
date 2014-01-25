@@ -13,7 +13,7 @@ class CalilTest extends Specification {
 
   "libraries" should {
     "at method with library site returns Library list" in {
-      implicit val apiKey = "hoge"
+      implicit val appkey = "hoge"
 
       forall(libraries at LibrarySite("岡山県", "岡山市")){ resultLibrary =>
         resultLibrary.pref must equalTo("岡山県")
@@ -22,7 +22,7 @@ class CalilTest extends Specification {
     }
 
     "at method with geo code returns library list" in {
-      implicit val apiKey = "hoge"
+      implicit val appkey = "hoge"
 
       (libraries at GeoLocation(34.6626, 133.934652)).head.formalName must equalTo("岡山県立図書館")
     }

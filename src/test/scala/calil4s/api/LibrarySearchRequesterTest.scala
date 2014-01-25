@@ -17,8 +17,8 @@ class LibrarySearchRequesterTest extends Specification {
     "returns query url with pref only condition" in {
       val site = LibrarySite("岡山県")
 
-      BySiteLibrarySearcher.requestUrl(site, "test-api-key").url must
-      equalTo(s"${baseApiUrl}?appkey=test-api-key&pref=${encode(site.pref)}")
+      BySiteLibrarySearcher.requestUrl(site, "test-app-key").url must
+      equalTo(s"${baseApiUrl}?appkey=test-app-key&pref=${encode(site.pref)}")
     }
 
     "returns query url with pref and city condition" in {
