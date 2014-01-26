@@ -3,29 +3,8 @@ package calil4s.api
 /**
  * @author mao.instantlife at gmail.com
  */
-
-import org.specs2.mutable._
-import java.net.URLEncoder
-import dispatch.Req
-
-class CheckBooksApiTest extends Specification {
+class CheckBooksApiTest extends ApiRequestTestBase {
   val baseApiUrl = "https://api.calil.jp/check"
-  val baseSearchUrl = s"${baseApiUrl}?appkey=test-app-key&format=json&callback="
-
-  private def encode(value: String) = URLEncoder.encode(value, "utf-8")
-
-  implicit class RequestUrlAssertion(val requestUrl: Req) {
-    def assert(queryStrings: String*) = {
-      requestUrl.url.length must equalTo(
-        queryStrings.foldLeft(baseSearchUrl.length)((z, param) => z + 1 + param.length))
-
-      requestUrl.url must startWith(baseApiUrl)
-
-      forall(queryStrings){ query =>
-        requestUrl.url must contain(query)
-      }
-    }
-  }
 
   "SetTargetLibraryContext.requestUrl((List[String], List[String]), AppKey)" should {
     "returns query url with isbn list and system id list" in {

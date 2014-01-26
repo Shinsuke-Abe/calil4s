@@ -1,34 +1,14 @@
 package calil4s.api
 
-/**
- * @author mao.instantlife at gmail.com
- */
-
-import org.specs2.mutable._
-import java.net.URLEncoder
 import calil4s.TestConstants._
-import dispatch.Req
 import org.json4s._
 import org.json4s.native.JsonMethods._
 
-class LibrarySearchRequesterTest extends Specification {
+/**
+ * @author mao.instantlife at gmail.com
+ */
+class LibrarySearchRequesterTest extends ApiRequestTestBase {
   val baseApiUrl = "https://api.calil.jp/library"
-  val baseSearchUrl = s"${baseApiUrl}?appkey=test-app-key&format=json&callback="
-
-  private def encode(value: String) = URLEncoder.encode(value, "utf-8")
-
-  implicit class RequestUrlAssertion(val requestUrl: Req) {
-    def assert(queryStrings: String*) = {
-      requestUrl.url.length must equalTo(
-        queryStrings.foldLeft(baseSearchUrl.length)((z, param) => z + 1 + param.length))
-
-      requestUrl.url must startWith(baseApiUrl)
-
-      forall(queryStrings){ query =>
-        requestUrl.url must contain(query)
-      }
-    }
-  }
 
   "BySiteLibrarySearcher.requestUrl(LibrarySite, AppKey)" should {
     "returns query url with pref only condition" in {
