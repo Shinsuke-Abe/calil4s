@@ -7,6 +7,7 @@ package calil4s.models
 import org.specs2.mutable._
 import calil4s.commons._
 
+// TODO 削除,calilUrlをCheckResultに変更
 class BookTest extends Specification {
   "calilUrl" should {
     "returns book search url" in {

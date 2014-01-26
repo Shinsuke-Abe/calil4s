@@ -20,6 +20,7 @@ import calil4s.commons._
 /**
  * @author mao.instantlife at gmail.com
  */
-case class Book(isbn: String, searchResponses: List[LibrarySearchResponse]) {
+// TODO 削除,calilUrlをCheckResultに変更
+case class Book(isbn: String, searchResponses: List[LibrarySearchStatus]) {
   def calilUrl = calilUrl"/book/${isbn}"
 }

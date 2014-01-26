@@ -21,10 +21,9 @@ import java.net.URL
 /**
  * @author mao.instantlife at gmail.com
  */
-case class LibrarySearchResponse(systemId: String,
-                                 status: SearchStatus,
-                                 reserveUrl: URL,
-                                 libkey: Map[String, BorrowStatus])
+case class LibrarySearchStatus(status: String,
+                               reserveUrl: String,
+                               libkey: Map[String, String])
 
 case class SearchStatus(status: String)
 object OK extends SearchStatus("OK")

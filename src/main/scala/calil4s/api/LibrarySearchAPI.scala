@@ -24,6 +24,8 @@ import org.json4s.native.JsonMethods._
 /**
  * @author mao.instantlife at gmail.com
  */
+
+// TODO LibrarySearchContextにrename
 object LibrarySearchAPI {
   def at[T](condition: T)(implicit appkey: String, searcher: LibrarySearcher[T]) = searcher.search(condition, appkey)
 }

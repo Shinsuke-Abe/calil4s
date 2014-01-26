@@ -1,6 +1,7 @@
 package calil4s
 
 import api._
+import calil4s.models.Library
 
 /*
  * Copyright (C) 2014 Shinsuke Abe
