@@ -11,16 +11,19 @@ class CalilTest extends Specification {
   import TestConstants._
   import Calil._
 
+  val okayamaCityLib = libraries at siteOkayamaCity
+  val okayamaPrefGeoLib = libraries at geoOkayamaPrefLib
+
   "libraries" should {
     "at method with library site returns Library list" in {
-      forall(libraries at siteOkayamaCity){ resultLibrary =>
+      forall(okayamaCityLib){ resultLibrary =>
         resultLibrary.pref must equalTo("岡山県")
         resultLibrary.city must equalTo("岡山市")
       }
     }
 
     "at method with geo code returns library list" in {
-      (libraries at geoOkayamaPrefLib).head.formal must equalTo("岡山県立図書館")
+      (okayamaPrefGeoLib).head.formal must equalTo("岡山県立図書館")
     }
   }
 
@@ -29,18 +32,29 @@ class CalilTest extends Specification {
       (check collection isbns).isbns must equalTo(isbns)
     }
 
-    // TODO collection メソッドの引数が空リスト
+    "collection method with null values throw exception" in {
+      (check collection null) must throwA[IllegalArgumentException]
+    }
+
+    "collection method with empty list throw exception" in {
+      (check collection List.empty[String]) must throwA[IllegalArgumentException]
+    }
   }
 
   "SetTargetLibraryContext.of" should {
     "of method with library's systemid list returns CheckResult" in {
-      val okayamaPrefLibsSystemId = (libraries at siteOkayamaCity).map(_.systemid).distinct
+      val okayamaPrefLibsSystemId = okayamaCityLib.map(_.systemid).distinct
       (check collection isbns of okayamaPrefLibsSystemId).books must haveKeys(isbns: _*)
     }
 
-    // TODO of メソッドの引数が空リスト
+    "of method with null value s throw exceptioin" in {
+      (check collection isbns of null) must throwA[IllegalArgumentException]
+    }
+
+    "of method with empty list throw excpetion" in {
+      (check collection isbns of List.empty[String]) must throwA[IllegalArgumentException]
+    }
   }
-  // TODO checkBooks
   // TODO 結果のポーリング
 
   // TODO Rate limit到達時の挙動が仕様に書かれていない...

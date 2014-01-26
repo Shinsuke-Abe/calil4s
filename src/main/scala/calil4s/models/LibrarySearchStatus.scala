@@ -22,7 +22,7 @@ package calil4s.models
  */
 case class LibrarySearchStatus(status: String,
                                reserveurl: String,
-                               libkey: Map[String, String])
+                               libkey: Option[Map[String, String]])
 
 case class SearchStatus(status: String)
 object OK extends SearchStatus("OK")
