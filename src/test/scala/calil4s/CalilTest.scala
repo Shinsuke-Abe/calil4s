@@ -28,13 +28,17 @@ class CalilTest extends Specification {
     "collection method with isbn list returns SetTargetLibraryContext" in {
       (check collection isbns).isbns must equalTo(isbns)
     }
+
+    // TODO collection メソッドの引数が空リスト
   }
 
   "SetTargetLibraryContext.of" should {
     "of method with library's systemid list returns CheckResult" in {
-      val okayaCityLibsSystemId = (libraries at siteOkayamaCity).map(_.systemid).distinct
-      (check collection isbns of okayaCityLibsSystemId).books must haveKeys(isbns: _*)
+      val okayamaPrefLibsSystemId = (libraries at siteOkayamaCity).map(_.systemid).distinct
+      (check collection isbns of okayamaPrefLibsSystemId).books must haveKeys(isbns: _*)
     }
+
+    // TODO of メソッドの引数が空リスト
   }
   // TODO checkBooks
   // TODO 結果のポーリング

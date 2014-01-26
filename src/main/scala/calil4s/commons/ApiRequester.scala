@@ -27,6 +27,6 @@ trait ApiRequester[T] {
 
   // TODO 正規表現で行けると思う
   protected def trimCallbackBracket(response: String) =
-    if(response.startsWith("(") && response.endsWith(");")) response.substring(1, response.length - 3)
+    if(response.startsWith("(") && response.endsWith(");")) response.substring(1, response.length - 2)
     else response
 }

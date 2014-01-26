@@ -16,7 +16,10 @@ object CheckCollectionContext {
 case class SetTargetLibraryContext(val isbns: List[String], appkey: String) extends ApiRequester[(List[String], List[String])]{
   implicit val format = DefaultFormats
 
-  def of(systemids: List[String]) = CheckResult(null, Map("4334926940" -> null, "4088700104" -> null), 0)
+  def of(systemids: List[String]):CheckResult = {
+    val response = Http(requestUrl((isbns, systemids), appkey) OK as.String)
+    parseResponse(parse(trimCallbackBracket(response())))
+  }
 
   private[calil4s] def requestUrl(condition: (List[String], List[String]), appkey: String): Req =
     url("https://api.calil.jp/check") <<?
