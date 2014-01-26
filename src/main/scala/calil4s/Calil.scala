@@ -26,4 +26,6 @@ object Calil {
   implicit val byGeoLocation = ByGeoLocationLibrarySearcher
 
   val libraries = LibrarySearchAPI
+
+  val check = CheckCollectionContext
 }

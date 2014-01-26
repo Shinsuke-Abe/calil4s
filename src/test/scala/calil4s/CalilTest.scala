@@ -4,7 +4,6 @@ package calil4s
  * @author mao.instantlife at gmail.com
  */
 
-import models.{GeoLocation, LibrarySite}
 import org.specs2.mutable._
 
 class CalilTest extends Specification {
@@ -22,6 +21,12 @@ class CalilTest extends Specification {
 
     "at method with geo code returns library list" in {
       (libraries at geoOkayamaPrefLib).head.formal must equalTo("岡山県立図書館")
+    }
+  }
+
+  "check collection" should {
+    "collection method with isbn list returns SetTargetLibraryContext" in {
+      (check collection List("0123456789", "1234567890")).isbns must equalTo(List("0123456789", "1234567890"))
     }
   }
   // TODO checkBooks
