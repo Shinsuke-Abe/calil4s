@@ -30,9 +30,16 @@ object CheckCollectionContext {
   }
 }
 
-case class SetTargetLibraryContext(val isbns: List[String], appkey: String) extends ApiRequester[(List[String], List[String]), CheckResult]{
+trait CheckBooksApiRequester[T] extends ApiRequester[T, CheckResult] {
   implicit val format = DefaultFormats
 
+  protected def apiBaseUrl(appkey: String) =
+    url("https://api.calil.jp/check") <<? baseQueryMap(appkey)
+
+  def parseResponse(json: JValue) = json.extract[CheckResult]
+}
+
+case class SetTargetLibraryContext(val isbns: List[String], appkey: String) extends CheckBooksApiRequester[(List[String], List[String])]{
   def of(systemids: List[String]):CheckResult = {
     require(systemids != null && !systemids.isEmpty)
 
@@ -40,16 +47,10 @@ case class SetTargetLibraryContext(val isbns: List[String], appkey: String) exte
   }
 
   private[calil4s] def requestUrl(condition: (List[String], List[String]), appkey: String): Req =
-    url("https://api.calil.jp/check") <<?
-      baseQueryMap(appkey) <<?
-      Map("isbn" -> condition._1.mkString(","), "systemid" -> condition._2.mkString(","))
-
-  def parseResponse(json: JValue) = json.extract[CheckResult]
+    apiBaseUrl(appkey) <<? Map("isbn" -> condition._1.mkString(","), "systemid" -> condition._2.mkString(","))
 }
 
-object PollingResultContext extends ApiRequester[String, CheckResult] {
-  implicit val format = DefaultFormats
-
+object PollingResultContext extends CheckBooksApiRequester[String] {
   def apply(session: String, appkey: String) = {
     require(session != null && session.nonEmpty)
     require(appkey != null && appkey.nonEmpty)
@@ -58,9 +59,5 @@ object PollingResultContext extends ApiRequester[String, CheckResult] {
   }
 
   private[calil4s] def requestUrl(condition: String, appkey: String): Req =
-    url("https://api.calil.jp/check") <<?
-      baseQueryMap(appkey) <<?
-      Map("session" -> condition)
-
-  protected def parseResponse(json: JValue) = json.extract[CheckResult]
+    apiBaseUrl(appkey) <<? Map("session" -> condition)
 }
