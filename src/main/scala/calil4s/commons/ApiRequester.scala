@@ -23,6 +23,8 @@ import dispatch._, Defaults._
  * @author mao.instantlife at gmail.com
  */
 trait ApiRequester[T, ApiResultType] {
+  val pattern = "\\((.*)\\);".r
+
   protected def baseQueryMap(appkey: String) = Map("appkey" -> appkey, "format" -> "json", "callback" -> "")
 
   private[calil4s] def requestUrl(condition: T, appkey: String): Req
@@ -33,9 +35,9 @@ trait ApiRequester[T, ApiResultType] {
   }
 
   protected def parseResponse(json: JValue): ApiResultType
-
-  // TODO 正規表現で行けると思う
-  protected def trimCallbackBracket(response: String) =
-    if(response.startsWith("(") && response.endsWith(");")) response.substring(1, response.length - 2)
-    else response
+  
+  protected def trimCallbackBracket(response: String) = response match{
+    case pattern(trimedResponse) => trimedResponse
+    case _ => response
+  }
 }
