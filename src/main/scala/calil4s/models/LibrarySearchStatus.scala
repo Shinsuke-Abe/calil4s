@@ -22,7 +22,7 @@ import java.net.URL
  * @author mao.instantlife at gmail.com
  */
 case class LibrarySearchStatus(status: String,
-                               reserveUrl: String,
+                               reserveurl: String,
                                libkey: Map[String, String])
 
 case class SearchStatus(status: String)

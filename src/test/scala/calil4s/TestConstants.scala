@@ -121,4 +121,22 @@ object TestConstants {
       |    }
       |]
     """.stripMargin
+
+  val checkResultJson =
+    """
+      |{
+      |  "session": "11a285036112525afe32b1a3d4c36245",
+      |  "books": {
+      |    "4334926940": {
+      |      "Tokyo_Setagaya": {"status": "OK", "reserveurl": "http://libweb.tokyo.jp/123",
+      |        "libkey": {"玉川台": "貸出可", "世田谷": "貸出中", "経堂": "館内のみ"}}
+      |    },
+      |    "4088700104": {
+      |      "Tokyo_Setagaya": {"status": "Running", "reserveurl": "",
+      |        "libkey": {}}
+      |    }
+      |  },
+      |  "continue": 1
+      |}
+    """.stripMargin
 }
