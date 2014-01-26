@@ -55,7 +55,6 @@ class CalilTest extends Specification {
       (check collection isbns of List.empty[String]) must throwA[IllegalArgumentException]
     }
   }
-  // TODO 結果のポーリング
 
   // TODO Rate limit到達時の挙動が仕様に書かれていない...
 }

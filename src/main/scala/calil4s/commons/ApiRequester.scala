@@ -35,7 +35,7 @@ trait ApiRequester[T, ApiResultType] {
   }
 
   protected def parseResponse(json: JValue): ApiResultType
-  
+
   protected def trimCallbackBracket(response: String) = response match{
     case pattern(trimedResponse) => trimedResponse
     case _ => response

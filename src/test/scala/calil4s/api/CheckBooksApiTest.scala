@@ -27,4 +27,13 @@ class CheckBooksApiTest extends ApiRequestTestBase {
       testContext.parseResponse(parse(checkResultJson)).books must haveKeys(isbns: _*)
     }
   }
+
+  "PollingCheckResultContext.requestUrl(CheckResult)" should {
+    "returns query url with CheckResult session id" in {
+      val testCheckResult = testContext.parseResponse(parse(checkResultJson))
+
+      PollingResultContext.requestUrl(testCheckResult.session, "test-app-key") assert (
+        s"session=${encode(testCheckResult.session)}")
+    }
+  }
 }

@@ -1,7 +1,7 @@
 package calil4s
 
 import api._
-import calil4s.models.Library
+import calil4s.models.{CheckResult, Library}
 
 /*
  * Copyright (C) 2014 Shinsuke Abe
@@ -29,4 +29,8 @@ object Calil {
   val libraries = LibrarySearchContext
 
   val check = CheckCollectionContext
+
+  implicit class ToCheckResultContext(val checkResult: CheckResult) {
+    def polling(implicit appkey: String) = PollingResultContext(checkResult.session, appkey)
+  }
 }

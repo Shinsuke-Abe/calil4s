@@ -46,3 +46,21 @@ case class SetTargetLibraryContext(val isbns: List[String], appkey: String) exte
 
   def parseResponse(json: JValue) = json.extract[CheckResult]
 }
+
+object PollingResultContext extends ApiRequester[String, CheckResult] {
+  implicit val format = DefaultFormats
+
+  def apply(session: String, appkey: String) = {
+    require(session != null && session.nonEmpty)
+    require(appkey != null && appkey.nonEmpty)
+
+    executeRequest(requestUrl(session, appkey))
+  }
+
+  private[calil4s] def requestUrl(condition: String, appkey: String): Req =
+    url("https://api.calil.jp/check") <<?
+      baseQueryMap(appkey) <<?
+      Map("session" -> condition)
+
+  protected def parseResponse(json: JValue) = json.extract[CheckResult]
+}
