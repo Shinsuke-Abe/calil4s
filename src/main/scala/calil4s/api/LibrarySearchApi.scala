@@ -17,9 +17,8 @@ package calil4s.api
  */
 import calil4s.models.{GeoLocation, LibrarySite, Library}
 import calil4s.commons.ApiRequester
-import dispatch._, Defaults._
+import dispatch._
 import org.json4s._
-import org.json4s.native.JsonMethods._
 
 /**
  * @author mao.instantlife at gmail.com
@@ -28,15 +27,12 @@ object LibrarySearchContext {
   def at[T](condition: T)(implicit appkey: String, searcher: LibrarySearcher[T]) = searcher.search(condition, appkey)
 }
 
-trait LibrarySearcher[T] extends ApiRequester[T] {
+trait LibrarySearcher[T] extends ApiRequester[T, List[Library]] {
   implicit val format = DefaultFormats
 
   protected def apiBase(appkey: String) = url("https://api.calil.jp/library") <<? baseQueryMap(appkey)
 
-  def search(self: T, appkey: String): List[Library] = {
-    val response = Http(requestUrl(self, appkey) OK as.String)
-    parseResponse(parse(trimCallbackBracket(response())))
-  }
+  def search(self: T, appkey: String): List[Library] = executeRequest(requestUrl(self, appkey))
 
   def parseResponse(json: JValue) = json.extract[List[Library]]
 }

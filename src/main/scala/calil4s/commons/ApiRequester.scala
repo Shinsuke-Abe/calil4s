@@ -15,15 +15,24 @@ package calil4s.commons
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dispatch.Req
+import org.json4s.native.JsonMethods._
+import org.json4s._
+import dispatch._, Defaults._
 
 /**
  * @author mao.instantlife at gmail.com
  */
-trait ApiRequester[T] {
+trait ApiRequester[T, ApiResultType] {
   protected def baseQueryMap(appkey: String) = Map("appkey" -> appkey, "format" -> "json", "callback" -> "")
 
   private[calil4s] def requestUrl(condition: T, appkey: String): Req
+
+  protected def executeRequest(request: Req) = {
+    val response = Http(request OK as.String)
+    parseResponse(parse(trimCallbackBracket(response())))
+  }
+
+  protected def parseResponse(json: JValue): ApiResultType
 
   // TODO 正規表現で行けると思う
   protected def trimCallbackBracket(response: String) =

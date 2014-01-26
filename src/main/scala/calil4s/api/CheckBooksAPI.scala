@@ -17,9 +17,8 @@ package calil4s.api
 
 import calil4s.models.CheckResult
 import calil4s.commons.ApiRequester
-import dispatch._, Defaults._
+import dispatch._
 import org.json4s._
-import org.json4s.native.JsonMethods._
 
 /**
  * @author mao.instantlife at gmail.com
@@ -31,14 +30,13 @@ object CheckCollectionContext {
   }
 }
 
-case class SetTargetLibraryContext(val isbns: List[String], appkey: String) extends ApiRequester[(List[String], List[String])]{
+case class SetTargetLibraryContext(val isbns: List[String], appkey: String) extends ApiRequester[(List[String], List[String]), CheckResult]{
   implicit val format = DefaultFormats
 
   def of(systemids: List[String]):CheckResult = {
     require(systemids != null && !systemids.isEmpty)
 
-    val response = Http(requestUrl((isbns, systemids), appkey) OK as.String)
-    parseResponse(parse(trimCallbackBracket(response())))
+    executeRequest(requestUrl((isbns, systemids), appkey))
   }
 
   private[calil4s] def requestUrl(condition: (List[String], List[String]), appkey: String): Req =
