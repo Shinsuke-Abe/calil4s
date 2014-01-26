@@ -11,8 +11,6 @@ class CalilTest extends Specification {
   import TestConstants._
   import Calil._
 
-  val isbns = List("4334926940", "4088700104")
-
   "libraries" should {
     "at method with library site returns Library list" in {
       forall(libraries at siteOkayamaCity){ resultLibrary =>
@@ -35,7 +33,7 @@ class CalilTest extends Specification {
   "SetTargetLibraryContext.of" should {
     "of method with library's systemid list returns CheckResult" in {
       val okayaCityLibsSystemId = (libraries at siteOkayamaCity).map(_.systemid).distinct
-      (check collection isbns of okayaCityLibsSystemId).books must haveKeys("4334926940", "4088700104")
+      (check collection isbns of okayaCityLibsSystemId).books must haveKeys(isbns: _*)
     }
   }
   // TODO checkBooks

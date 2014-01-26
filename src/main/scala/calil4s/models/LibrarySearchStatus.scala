@@ -16,7 +16,6 @@ package calil4s.models
  * limitations under the License.
  */
 
-import java.net.URL
 
 /**
  * @author mao.instantlife at gmail.com

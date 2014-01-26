@@ -16,7 +16,10 @@ package calil4s.models
  * limitations under the License.
  */
 
+import calil4s.commons._
 /**
  * @author mao.instantlife at gmail.com
  */
-case class CheckResult(session: String, books: Map[String, Map[String, LibrarySearchStatus]], continue: Int)
+case class CheckResult(session: String, books: Map[String, Map[String, LibrarySearchStatus]], continue: Int) {
+  def calilUrlMap = books.transform((isbn, _) => calilUrl"/book/${isbn}")
+}

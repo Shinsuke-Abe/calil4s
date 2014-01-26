@@ -21,6 +21,8 @@ object TestConstants {
 
   val geoOkayamaPrefLib = GeoLocation(34.6626, 133.934652)
 
+  val isbns = List("4334926940", "4088700104")
+
   val librariesJson =
     """
       |[

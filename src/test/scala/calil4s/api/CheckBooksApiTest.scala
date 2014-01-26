@@ -10,8 +10,6 @@ import org.json4s.native.JsonMethods._
 class CheckBooksApiTest extends ApiRequestTestBase {
   val baseApiUrl = "https://api.calil.jp/check"
 
-  val isbns = List("4334926940", "4088700104")
-
   val testContext = SetTargetLibraryContext(isbns, "test-app-key")
 
   "SetTargetLibraryContext.requestUrl((List[String], List[String]), AppKey)" should {
@@ -26,7 +24,7 @@ class CheckBooksApiTest extends ApiRequestTestBase {
 
   "SetTargetLibraryContext.parseResponse" should {
     "json to list of Library" in {
-      testContext.parseResponse(parse(checkResultJson)).books must haveKeys("4334926940", "4088700104")
+      testContext.parseResponse(parse(checkResultJson)).books must haveKeys(isbns: _*)
     }
   }
 }
