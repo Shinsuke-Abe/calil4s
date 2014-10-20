@@ -21,7 +21,7 @@ package calil4s.models
  * @author mao.instantlife at gmail.com
  */
 case class LibrarySearchStatus(status: String,
-                               reserveurl: String,
+                               reserveurl: Option[String],
                                libkey: Option[Map[String, String]])
 
 case class SearchStatus(status: String)

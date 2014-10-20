@@ -1,13 +1,15 @@
 name := "Calil4S"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.11.2"
+
+crossScalaVersions := Seq("2.10.1", "2.11.2")
 
 organization := "com.github.Shinsuke-Abe"
 
 libraryDependencies ++= Seq(
-  "org.specs2" %% "specs2" % "2.3.7" % "test",
+  "org.specs2" %% "specs2" % "2.4.2" % "test",
   "net.databinder.dispatch" %% "dispatch-core" % "0.11.0",
-  "org.json4s" %% "json4s-native" % "3.2.6"
+  "org.json4s" %% "json4s-native" % "3.2.10"
 )
 
 scalacOptions in Test ++= Seq("-Yrangepos")
